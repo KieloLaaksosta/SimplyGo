@@ -18,17 +18,17 @@ void SimplyGo::GameState::initStones()
         stones[i] = StoneFlags::None;
 }
 
-bool SimplyGo::GameState::wouldKill(Point point, bool isPlayer1)
+bool SimplyGo::GameState::wouldKill(Point startingPoint, bool isPlayer1)
 {
     std::bitset<ARR_LEN> visitedPoints = std::bitset<ARR_LEN>();
     std::stack<Point> workStack = std::stack<Point>();
 
-    workStack.push(point);
+    workStack.push(startingPoint);
     visitedPoints.reset();
 
     while (!workStack.empty())
     {
-        point = workStack.top();
+        Point point = workStack.top();
         workStack.pop();
 
         int index = getIndex(point);
@@ -44,7 +44,7 @@ bool SimplyGo::GameState::wouldKill(Point point, bool isPlayer1)
                 continue;
 
             StoneFlags flags = getFlags(offsetPoint);
-            if (!(flags & StoneFlags::IsPlaced))
+            if (!(flags & StoneFlags::IsPlaced) && offsetPoint != startingPoint)
                 return false;
 
             if ((flags & StoneFlags::IsPlayer1 == StoneFlags::IsPlayer1) == isPlayer1)
