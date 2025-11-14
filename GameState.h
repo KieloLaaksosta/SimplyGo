@@ -3,8 +3,8 @@
 
 #include "Point.h"
 
-#define BOARD_SIZE 19
-#define ARR_LEN 19 * 19
+constexpr int BOARD_SIZE = 19;
+constexpr int ARR_LEN = 19 * 19;
 
 namespace SimplyGo
 {

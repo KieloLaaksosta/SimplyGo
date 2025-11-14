@@ -19,7 +19,7 @@ namespace SimplyGo
         bool operator==(const Point &other);
     };
 
-    Point directions[] = {Point(-1, 0), Point(1, 0), Point(0, -1), Point(0, 1)};
+    extern const Point DIRECTIONS[];
 }
 
 #endif

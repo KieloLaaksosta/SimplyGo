@@ -38,7 +38,7 @@ bool SimplyGo::GameState::wouldKill(Point point, bool isPlayer1)
 
         for (int i = 0; i < 4; i++)
         {
-            Point offsetPoint = point + directions[i];
+            Point offsetPoint = point + DIRECTIONS[i];
 
             if (!isValidPoint(offsetPoint))
                 continue;
@@ -69,7 +69,7 @@ bool SimplyGo::GameState::kill(Point point, bool isPlayer1)
 
         for (int i = 0; i < 4; i++)
         {
-            Point offsetPoint = point + directions[i];
+            Point offsetPoint = point + DIRECTIONS[i];
             if (!isValidPoint(offsetPoint))
                 continue;
 
@@ -90,7 +90,7 @@ void SimplyGo::GameState::place(Point point, bool isPlayer1)
     setFlags(point, (StoneFlags::IsPlaced | isPlayer1 ? StoneFlags::IsPlayer1 : StoneFlags::None));
     for (int i = 0; i < 4; i++)
     {
-        Point offsetPoint = point + directions[i];
+        Point offsetPoint = point + DIRECTIONS[i];
         StoneFlags flags = getFlags(offsetPoint);
         if (flags | StoneFlags::IsPlaced && (flags | StoneFlags::IsPlayer1 == StoneFlags::IsPlayer1) != isPlayer1)
         {
@@ -110,7 +110,7 @@ bool SimplyGo::GameState::canPlace(Point point, bool isPlayer1)
 
     for (int i = 0; i < 4; i++)
     {
-        Point offsetPoint = point + directions[i];
+        Point offsetPoint = point + DIRECTIONS[i];
         StoneFlags flags = getFlags(offsetPoint);
         if (flags | StoneFlags::IsPlaced && (flags | StoneFlags::IsPlayer1 == StoneFlags::IsPlayer1) != isPlayer1)
         {
