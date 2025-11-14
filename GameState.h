@@ -25,8 +25,8 @@ namespace SimplyGo
 
         void initStones();
 
-        bool wouldKill(Point startingPoint, bool isPlayer1);
-        bool kill(Point point, bool isPlayer1);
+        bool wouldCapture(Point startingPoint, bool isPlayer1);
+        bool capture(Point point, bool isPlayer1);
 
         void place(Point point, bool isPlayer1);
         bool canPlace(Point point, bool isPlayer1);
