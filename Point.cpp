@@ -28,7 +28,12 @@ SimplyGo::Point SimplyGo::Point::operator/(const int &n)
     return Point(x / n, y / n);
 }
 
-bool SimplyGo::Point::operator==(const Point &other)
+bool SimplyGo::Point::operator==(const Point &n)
 {
-    return false;
+    return x == n.x && y == n.y;
+}
+
+bool SimplyGo::Point::operator!=(const Point &n)
+{
+    return x != n.x || y != n.y;
 }

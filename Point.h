@@ -16,7 +16,8 @@ namespace SimplyGo
         Point operator*(const int &n);
         Point operator/(const int &n);
 
-        bool operator==(const Point &other);
+        bool operator==(const Point &n);
+        bool operator!=(const Point &n);
     };
 
     extern const Point DIRECTIONS[];
