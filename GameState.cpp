@@ -7,7 +7,7 @@ SimplyGo::StoneFlags SimplyGo::GameState::getFlags(Point point)
     return stones[getIndex(point)];
 }
 
-SimplyGo::StoneFlags SimplyGo::GameState::setFlags(Point point, StoneFlags flags)
+void SimplyGo::GameState::setFlags(Point point, StoneFlags flags)
 {
     stones[getIndex(point)] = flags;
 }
@@ -40,7 +40,7 @@ bool SimplyGo::GameState::wouldKill(Point point, bool isPlayer1)
         {
             Point offsetPoint = point + directions[i];
 
-            if (isValidPoint(offsetPoint))
+            if (!isValidPoint(offsetPoint))
                 continue;
 
             StoneFlags flags = getFlags(offsetPoint);
@@ -57,7 +57,7 @@ bool SimplyGo::GameState::wouldKill(Point point, bool isPlayer1)
     return true;
 }
 
-bool SimplyGo::GameState::kill(Point point)
+bool SimplyGo::GameState::kill(Point point, bool isPlayer1)
 {
     std::stack<Point> workStack = std::stack<Point>();
     workStack.push(point);
@@ -70,11 +70,11 @@ bool SimplyGo::GameState::kill(Point point)
         for (int i = 0; i < 4; i++)
         {
             Point offsetPoint = point + directions[i];
-            if (isValidPoint(offsetPoint))
+            if (!isValidPoint(offsetPoint))
                 continue;
 
             StoneFlags flags = getFlags(offsetPoint);
-            if (flags & StoneFlags::IsPlayer1 == StoneFlags::IsPlayer1)
+            if ((flags & StoneFlags::IsPlayer1 == StoneFlags::IsPlayer1) != isPlayer1)
             {
                 setFlags(offsetPoint, StoneFlags::None);
                 workStack.push(offsetPoint);
@@ -87,12 +87,39 @@ bool SimplyGo::GameState::kill(Point point)
 
 void SimplyGo::GameState::place(Point point, bool isPlayer1)
 {
+    setFlags(point, (StoneFlags::IsPlaced | isPlayer1 ? StoneFlags::IsPlayer1 : StoneFlags::None));
+    for (int i = 0; i < 4; i++)
+    {
+        Point offsetPoint = point + directions[i];
+        StoneFlags flags = getFlags(offsetPoint);
+        if (flags | StoneFlags::IsPlaced && (flags | StoneFlags::IsPlayer1 == StoneFlags::IsPlayer1) != isPlayer1)
+        {
+            if(wouldKill(point, !isPlayer1))
+                kill(offsetPoint, !isPlayer1);
+        }
+    }
+
+    if(wouldKill(point, isPlayer1));
+        kill(point, isPlayer1);
 }
 
 bool SimplyGo::GameState::canPlace(Point point, bool isPlayer1)
 {
     if (!isValidPoint(point))
         return false;
+
+    for (int i = 0; i < 4; i++)
+    {
+        Point offsetPoint = point + directions[i];
+        StoneFlags flags = getFlags(offsetPoint);
+        if (flags | StoneFlags::IsPlaced && (flags | StoneFlags::IsPlayer1 == StoneFlags::IsPlayer1) != isPlayer1)
+        {
+            if(wouldKill(point, !isPlayer1))
+                return true;
+        }
+    }
+
+    return wouldKill(point, isPlayer1);
 }
 
 bool SimplyGo::GameState::isValidPoint(Point point)
@@ -113,4 +140,9 @@ bool SimplyGo::GameState::tryPlace(Point point, bool isPlayer1)
     place(point, isPlayer1);
 
     return true;
+}
+
+SimplyGo::GameState::GameState()
+{
+    initStones();
 }

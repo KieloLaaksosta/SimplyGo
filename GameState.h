@@ -21,12 +21,12 @@ namespace SimplyGo
         StoneFlags stones[ARR_LEN];
 
         StoneFlags getFlags(Point point);
-        StoneFlags setFlags(Point point, StoneFlags flags);
+        void setFlags(Point point, StoneFlags flags);
 
         void initStones();
 
         bool wouldKill(Point point, bool isPlayer1);
-        bool kill(Point point);
+        bool kill(Point point, bool isPlayer1);
 
         void place(Point point, bool isPlayer1);
         bool canPlace(Point point, bool isPlayer1);
@@ -36,6 +36,8 @@ namespace SimplyGo
 
     public:
         bool tryPlace(Point point, bool isPlayer1);
+        
+        GameState();
     };
 }
 
