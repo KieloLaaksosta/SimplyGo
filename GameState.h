@@ -1,43 +1,28 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 
+#include <vector>
 #include "Point.h"
+#include "Board.h"
 
-constexpr int BOARD_SIZE = 19;
-constexpr int ARR_LEN = 19 * 19;
+extern const long long ZOBRIST_KEYS[ARR_LEN];
 
 namespace SimplyGo
 {
-    enum StoneFlags : char
-    {
-        None = 0,
-        IsPlaced = 1,
-        IsPlayer1 = 2
-    };
-
     class GameState
     {
     private:
-        StoneFlags stones[ARR_LEN];
+        Board *previousBoard;
+        Board *currentBoard;
+        std::vector<long long> previousHashes;
 
-        StoneFlags getFlags(Point point);
-        void setFlags(Point point, StoneFlags flags);
-
-        void initStones();
-
-        bool wouldCapture(Point startingPoint, bool isPlayer1);
-        bool capture(Point point, bool isPlayer1);
-
-        void place(Point point, bool isPlayer1);
-        bool canPlace(Point point, bool isPlayer1);
-
-        bool isValidPoint(Point point);
-        int getIndex(Point point);
+        bool isUniquePosition(long long newHash);
 
     public:
-        bool tryPlace(Point point, bool isPlayer1);
-        
+        bool tryPlace(Point point, bool isWhite);
+
         GameState();
+        ~GameState();
     };
 }
 

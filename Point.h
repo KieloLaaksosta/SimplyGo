@@ -20,7 +20,7 @@ namespace SimplyGo
         bool operator!=(const Point &n);
     };
 
-    extern const Point DIRECTIONS[];
+    extern const Point DIRECTIONS[4];
 }
 
 #endif
