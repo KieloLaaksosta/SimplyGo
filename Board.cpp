@@ -2,6 +2,7 @@
 #include <bitset>
 #include <cstring>
 #include <random>
+#include <iostream>
 #include "Board.h"
 
 const std::array<long long, SimplyGo::Board::KEY_COUNT> SimplyGo::Board::ZOBRIST_KEYS = []()
@@ -173,6 +174,39 @@ bool SimplyGo::Board::place(Point point, bool isWhite, long long &newHash)
 void SimplyGo::Board::copyFrom(const Board *board)
 {
     std::copy(std::begin(board->stones), std::end(board->stones), stones);
+}
+
+void SimplyGo::Board::printBoard() const
+{
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {
+        std::cout.width(2);
+        std::cout << std::right << i;
+
+        for (int j = 0; j < BOARD_SIZE; j++)
+        {
+            int index = getIndex(Point(i, j));
+
+            StoneFlags flags = stones[index];
+            char displayChar = '.';
+
+            if (flags & StoneFlags::IsPlaced)
+            {
+                if (flags & StoneFlags::IsWhite)
+                {
+                    displayChar = 'O';
+                }
+                else
+                {
+                    displayChar = 'X';
+                }
+            }
+
+            std::cout << " " << displayChar;
+        }
+        std::cout << "\n";
+    }
+    std::cout << "\n\n" << std::flush;
 }
 
 SimplyGo::Board::Board()

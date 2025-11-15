@@ -21,6 +21,8 @@ namespace SimplyGo
     public:
         bool tryPlace(Point point, bool isWhite);
 
+        void printCurrentBoard() const;
+
         GameState();
         ~GameState();
     };

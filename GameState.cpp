@@ -30,6 +30,11 @@ bool SimplyGo::GameState::tryPlace(Point point, bool isWhite)
     return true;
 }
 
+void SimplyGo::GameState::printCurrentBoard() const
+{
+    currentBoard->printBoard();
+}
+
 SimplyGo::GameState::GameState()
 {
     previousHashes.push_back(Board::EMPTY_BOARD_HASH);

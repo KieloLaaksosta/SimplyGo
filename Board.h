@@ -41,6 +41,7 @@ namespace SimplyGo
         bool place(Point point, bool isWhite, long long &newHash);
 
         void copyFrom(const Board *board);
+        void printBoard() const;
 
         Board();
     };
