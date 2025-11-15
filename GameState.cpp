@@ -3,7 +3,7 @@
 #include <cstring>
 #include "GameState.h"
 
-bool SimplyGo::GameState::isUniquePosition(long long newHash)
+bool SimplyGo::GameState::isUniquePosition(long long newHash) const
 {
     for (int i = 0; i < previousHashes.size(); i++)
         if (previousHashes[i] == newHash)

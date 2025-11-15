@@ -49,7 +49,7 @@ long long SimplyGo::Board::getStoneHash(Point point, StoneFlags flags)
     return ZOBRIST_KEYS[getIndex(point) + offset];
 }
 
-SimplyGo::StoneFlags SimplyGo::Board::getFlags(Point point)
+SimplyGo::StoneFlags SimplyGo::Board::getFlags(Point point) const
 {
     return stones[getIndex(point)];
 }
@@ -59,7 +59,7 @@ void SimplyGo::Board::setFlags(Point point, StoneFlags flags)
     stones[getIndex(point)] = flags;
 }
 
-bool SimplyGo::Board::isCaptured(Point startingPoint, bool isWhite)
+bool SimplyGo::Board::isCaptured(Point startingPoint, bool isWhite) const
 {
     std::bitset<ARR_LEN> visitedPoints = std::bitset<ARR_LEN>();
     std::stack<Point> workStack = std::stack<Point>();

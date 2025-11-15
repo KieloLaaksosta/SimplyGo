@@ -16,7 +16,7 @@ namespace SimplyGo
         Board *currentBoard;
         std::vector<long long> previousHashes;
 
-        bool isUniquePosition(long long newHash);
+        bool isUniquePosition(long long newHash) const;
 
     public:
         bool tryPlace(Point point, bool isWhite);

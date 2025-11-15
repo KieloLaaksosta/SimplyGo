@@ -22,20 +22,19 @@ namespace SimplyGo
     private:
         static constexpr int KEY_COUNT = 3 * ARR_LEN;
         static const std::array<long long, KEY_COUNT> ZOBRIST_KEYS;
+        static long long getStoneHash(Point point, StoneFlags flags);
 
         StoneFlags stones[ARR_LEN];
 
-        long long getStoneHash(Point point, StoneFlags flags);
-
-        StoneFlags getFlags(Point point);
+        StoneFlags getFlags(Point point) const;
         void setFlags(Point point, StoneFlags flags);
 
-        bool isCaptured(Point startingPoint, bool isWhite);
-        bool capture(Point point, bool isWhite, long long& newHash);
+        bool isCaptured(Point startingPoint, bool isWhite) const;
+        bool capture(Point point, bool isWhite, long long &newHash);
 
     public:
         static const long long EMPTY_BOARD_HASH;
-        
+
         static bool isValidPoint(Point point);
         static int getIndex(Point point);
 
